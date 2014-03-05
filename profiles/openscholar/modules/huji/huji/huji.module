@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * @file
+ * OpenScholar customization for The Hebrew University of Jerusalem.
+ */
+
+/**
+ * Page preprocess.
+ */
+function huji_preprocess_page(&$vars) {
+  if (_huji_is_hwpi_theme()) {
+    $vars['page']['branding_header']['huji'] = huji_branding_header();
+  }
+
+  $vars['page']['branding_footer']['huji'] = huji_branding_footer();
+}
+
+/**
+ * Returns if the active theme uses hwpi_basetheme as one of it's base theme.
+ *
+ * @return bool
+ */
+function _huji_is_hwpi_theme($theme_name = NULL) {
+  if (is_null($theme_name)) {
+    $theme_name = $GLOBALS['theme'];
+  }
+  $themes = list_themes();
+  if (isset($themes[$theme_name])) {
+    $t = $themes[$theme_name];
+    if (isset($t->base_themes) && isset($t->base_themes['hwpi_basetheme'])) {
+      return TRUE;
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Returns a build array for the HUJI branding header page region.
+ *
+ * @return array
+ *   A build array ready to render header info.
+ */
+function huji_branding_header() {
+  $header = array();
+  $header['left_container'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array(
+        'branding-left',
+      ),
+    ),
+    'img' => array(
+      '#theme' => 'link',
+      '#path' => 'http://huji.ac.il',
+      '#text' => theme('image', array('path' => drupal_get_path('module', 'huji') . '/images/logo.png', 'width' => 398, 'height' => 58, 'alt' => 'The Hebrew University of Jerusalem Logo')),
+      '#options' => array(
+        'external' => TRUE,
+        'html' => TRUE,
+        'attributes' => array(),
+      ),
+    ),
+  );
+
+  return $header;
+}
+
+/**
+ * Returns a build array for the standard branding footer region (copyright).
+ *
+ * @return array
+ *   A build array ready to render footer info.
+ */
+function huji_branding_footer() {
+  $footer = array();
+  $footer['huji_container'] = array(
+    '#type' => 'container',
+    '#attributes' => array(
+      'class' => array(
+        'copyright',
+      ),
+    ),
+    'copyright' => array(
+      '#markup' => t('<div class="huji-copyright">Copyright &copy; @year The Hebrew University of Jerusalem</div>', array('@year' => date('Y'))),
+    ),
+    'credits' => array(
+      '#markup' => t('<div class="credits">Developed by <a href="http://gizra.com">Gizra</a></div>'),
+    ),
+  );
+
+  return $footer;
+}

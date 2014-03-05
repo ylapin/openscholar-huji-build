@@ -1,0 +1,3 @@
+name = "HUJI"
+core = 7.x
+description = "OpenScholar customization for The Hebrew University of Jerusalem."
