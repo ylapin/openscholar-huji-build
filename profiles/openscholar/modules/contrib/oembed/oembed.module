@@ -162,7 +162,7 @@ function oembed_theme() {
  * Returns the provider for a url.
  *
  * @param string $url
- *  The url to get the provider for.
+ *  Teh url to get the provider for.
  * @return mixed
  *  A valid callback or FALSE
  */
@@ -176,27 +176,23 @@ function oembed_get_provider($url, &$matches, $role = 'consumer') {
   // returns the name of the child plugin that can fulfill the request.
   foreach ($plugins as $plugin) {
 
-    // A plugin with no schemes is effectively disabled.
-    if ($plugin[$role] && !empty($plugin['scheme'])) {
+    // Plugins will only be checked if they are enabled for the role.
+    if ($plugin[$role] && preg_match($plugin['scheme'], $url, $matches)) {
 
-      // Plugins will only be checked if they are enabled for the role.
-      if (preg_match($plugin['scheme'], $url, $matches)) {
+      // A scheme map is used to match a URL to a specific child plugin.
+      if (!empty($plugin['scheme map'])) {
+        foreach ($plugin['scheme map'] as $id => $scheme) {
+          if (preg_match($scheme, $url, $matches)) {
 
-        // A scheme map is used to match a URL to a specific child plugin.
-        if (!empty($plugin['scheme map'])) {
-          foreach ($plugin['scheme map'] as $id => $scheme) {
-            if (preg_match($scheme, $url, $matches)) {
-
-              // This forces the 'get child' callback to the loaded.
-              ctools_plugin_get_function($plugin, 'get child');
-              $plugin = ctools_get_plugins('oembed', 'providers', $id);
-              break;
-            }
+            // This forces the 'get child' callback to the loaded.
+            ctools_plugin_get_function($plugin, 'get child');
+            $plugin = ctools_get_plugins('oembed', 'providers', $id);
+            break;
           }
         }
-
-        return $plugin;
       }
+
+      return $plugin;
     }
   }
   return FALSE;
@@ -624,12 +620,6 @@ function oembed_file_formatter_view($file, $display, $langcode) {
 
     // Build render attributes array. Prefer file-specific overrides to display settings.
     $attributes = (isset($file->override) ? $file->override : array()) + $display['settings'];
-    if (isset($attributes['attributes']['width'])) {
-      $attributes['width'] = $attributes['attributes']['width'];
-    }
-    if (isset($attributes['attributes']['height'])) {
-      $attributes['height'] = $attributes['attributes']['height'];
-    }
     unset($attributes['attributes']);
     unset($attributes['wysiwyg']);
     unset($attributes['wmode']);

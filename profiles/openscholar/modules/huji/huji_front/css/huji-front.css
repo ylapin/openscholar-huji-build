@@ -1,0 +1,65 @@
+body.front  {
+  background: url('../images/startpage-bg.png') no-repeat 50% 0 #e7e7e7 !important;
+}
+
+body.front.logged-in {
+  background: url('../images/startpage-bg.png') no-repeat 50% 35px #e7e7e7 !important;
+}
+
+.front #footer {
+ background: #95969a !important;
+}
+
+#powerby-login .footer-login {
+  position: relative !important;
+  top: 106px !important;
+}
+
+#powered-by a {
+  background: url('../images/poweredby.png') no-repeat 20px -52px #95969a !important;
+  width: 109px !important;
+  height: 60px !important;
+}
+
+#powered-by {
+  top: 0 !important;
+  height: 60px !important;
+  padding-top: 40px !important;
+}
+
+#branding_footer .huji-copyright{
+  float: left;
+  margin-left: 100px;
+}
+
+#branding_footer .credits{
+  float: right;
+  margin-right: 100px;
+}
+
+#content-column .content-inner {
+  background: #000000;
+}
+
+#columns {
+  background: #f4f4f4 !important;
+}
+
+.front #block-os-search-db-site-search #search-block-form #edit-submit {
+  width: auto;
+  height: auto;
+  text-indent: -999em;
+  padding: 12px 20px 0px 20px !important;
+  margin: 0 0 0 12px !important;
+  -webkit-font-smoothing: antialiased;
+  font-weight: normal;
+  line-height: 12px;
+}
+
+.front .container.page:after {
+  content: ".";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}

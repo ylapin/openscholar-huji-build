@@ -4,11 +4,12 @@ package = Feeds
 dependencies[] = feeds
 files[] = tests/feeds_tamper.test
 files[] = tests/feeds_tamper_plugins.test
+files[] = tests/feeds_tamper_efq_finder.test
 core = 7.x
 
 
-; Information added by drush on 2014-03-05
+; Information added by drush on 2014-09-08
 version = "unknown"
 project = "feeds_tamper‏"
-datestamp = "1394022283"
+datestamp = "1410167670"
 

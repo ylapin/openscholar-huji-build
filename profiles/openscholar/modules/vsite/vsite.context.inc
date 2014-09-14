@@ -74,11 +74,23 @@ function vsite_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'os_search_solr-site-search' => array(
-          'module' => 'os_search_solr',
-          'delta' => 'site-search',
-          'region' => 'header_third',
-          'weight' => '-10',
+        'vsite_register-get_your_site_block' => array(
+          'module' => 'vsite_register',
+          'delta' => 'get_your_site_block',
+          'region' => 'sidebar_second',
+          'weight' => '-64',
+        ),
+        'boxes-iqss_scholars_fp_learnmore' => array(
+          'module' => 'boxes',
+          'delta' => 'iqss_scholars_fp_learnmore',
+          'region' => 'sidebar_second',
+          'weight' => '-63',
+        ),
+        'boxes-iqss_scholars_fp_logoblock' => array(
+          'module' => 'boxes',
+          'delta' => 'iqss_scholars_fp_logoblock',
+          'region' => 'header_first',
+          'weight' => '10',
         ),
         'os_search_db-site-search' => array(
           'module' => 'os_search_db',
@@ -86,17 +98,29 @@ function vsite_context_default_contexts() {
           'region' => 'header_third',
           'weight' => '-10',
         ),
-        'vsite_register-get_your_site_block' => array(
-          'module' => 'vsite_register',
-          'delta' => 'get_your_site_block',
-          'region' => 'sidebar_second',
-          'weight' => '-8',
+        'os_search_solr-site-search' => array(
+          'module' => 'os_search_solr',
+          'delta' => 'site-search',
+          'region' => 'header_third',
+          'weight' => '-10',
         ),
-        'os-install_status' => array(
-          'module' => 'os',
-          'delta' => 'install_status',
-          'region' => 'footer',
+        'boxes-iqss_scholars_fp_headertext' => array(
+          'module' => 'boxes',
+          'delta' => 'iqss_scholars_fp_headertext',
+          'region' => 'header_bottom',
+          'weight' => '-10',
+        ),
+        'boxes-iqss_scholars_fp_infoblock' => array(
+          'module' => 'boxes',
+          'delta' => 'iqss_scholars_fp_infoblock',
+          'region' => 'content_top',
           'weight' => '10',
+        ),
+        'views-os_websites-block' => array(
+          'module' => 'views',
+          'delta' => 'os_websites-block',
+          'region' => 'content_bottom',
+          'weight' => '-9',
         ),
       ),
     ),

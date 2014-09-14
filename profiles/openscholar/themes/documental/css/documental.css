@@ -104,9 +104,10 @@ p {
 #header-container h1 a, 
 #header-container h1 a:visited {
   font-weight: normal;
+  color: #800000;
   font-size:40px;
   font-family:'Roboto Condensed', arial;
-  }
+}
   
 #header-container h2 {
   margin-bottom:0;
@@ -117,8 +118,8 @@ p {
 /* MENU BAR */
 #menu-bar ul.nice-menu ul,
 #menu-bar {
-  background:#3b484d;
-  }
+  background: #535353;
+}
   
 #menu-bar ul.nice-menu li {
 	padding-left: 5px;

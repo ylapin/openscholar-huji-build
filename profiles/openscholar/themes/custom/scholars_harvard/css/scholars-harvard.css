@@ -91,7 +91,6 @@ background: #698da2;
 .os-topheadings {
 	color:#FFF;
 	font-size:13px;
-	padding: 0 0 15px 50px;
 }
 
 .os-topheadings a {
@@ -129,7 +128,7 @@ background: none repeat scroll 0 0 #EDEEF1;
 .os-featuredSites {
     float: left;
     height: 19px;
-     margin: 3px 327px 0 0;
+    margin: 11px 327px 0 -29px;
     width: 162px;
 }
  @-moz-document url-prefix() { 
@@ -205,7 +204,7 @@ p.os-leadin {
 
 .os-leftcol {
     margin: 0;
-    padding: 35px 40px 0 29px;
+    padding: 25px 40px 30px 29px;
 }
 
 .os-rightcol {
@@ -213,7 +212,9 @@ p.os-leadin {
     padding: 15px 40px 0 29px;
 }
 
-
+#content-panels {
+  background: #e7e7e7;
+}
 
 .front #columns .region-inner {
     padding-top: 0;
@@ -222,7 +223,7 @@ p.os-leadin {
 
 
 .front .region-sidebar-second {
-	background:#F5F5F5;
+	background: #f4f4f4;
 }
 
 
@@ -269,17 +270,18 @@ background: url('../images/startpage-bg.png') no-repeat 50% 0 #698da2 ;
 /*header*/
 
 #header-container #block-boxes-iqss-scholars-fp-logoblock {
-  width: 231px;
+  width: 391px;
   height: 76px;
-  background: url(../images/logo.png) no-repeat;
-  text-indent: -999em;
   float:left;
-  margin-left: 9px;
   }
   
 #block-os-search-db-site-search {
 	margin-top:15px;
-}  
+}
+
+#header-container .region-header-third .region-inner {
+  margin-left: 67px;
+}
 
 #startpage-header {
   height: 76px;
@@ -314,6 +316,14 @@ background: url('../images/startpage-bg.png') no-repeat 50% 0 #698da2 ;
   height:56px;
   }
 
+#header-container .region-header-bottom {
+  width: 80%;
+  margin-bottom: 6px;
+}
+
+#header-container .region-header-bottom .region-inner {
+  padding-top: 10px;
+}
 
 #header-container h2 {
   font: 15px/normal 'PT Sans',arial,serif;
@@ -504,16 +514,16 @@ margin:27px 327px 0 0; } }
 
 .view-id-os_websites li.views-row {
   width: 161px;
-  height: 164px;
+  height: 125px;
   margin: 0;
-  border: 3px solid #3c4452;
   border-top: none;
   border-left: none;
   float: left;
   clear: none;
   position:relative;
   list-style: none;
-  }
+  border: 1px solid #3c4452;
+}
 /*
 .view-id-os_websites li.views-row img {
   width: 161px;
@@ -524,7 +534,7 @@ margin:27px 327px 0 0; } }
   display:block;
   color: #fff;
   width: 161px;
-  height: 164px;
+  height: 125px;
   font-size: 10px;
   line-height: 11px;
   background: #000;
@@ -558,7 +568,7 @@ margin:27px 327px 0 0; } }
 .view-id-os_websites li.views-row span.field-content  {
   padding: 6px 9px 0 9px;
   position:absolute;
-  bottom:3px;
+  bottom: 0px;
   left: 0;
   right:0;
   /*height: 33px;*/
@@ -1158,7 +1168,7 @@ border-right:1px solid #E8E9EB;
 
 /* CSS fixes for frontpage header */
 #header-container #block-boxes-iqss-scholars-fp-logoblock {
-  height: 56px;
+  height: 63px;
 }
 
 #columns {
@@ -1190,7 +1200,7 @@ border-right:1px solid #E8E9EB;
 
 #block-views-os-websites-block .views-field-field-site-description div.field-content {
   position:absolute;
-  bottom:5px;
+  bottom: 3px;
   left: 9px;
   right:0;
   line-height: 11px;
@@ -1208,6 +1218,7 @@ border-right:1px solid #E8E9EB;
     font-size: 30px;
     padding: 0;
     text-decoration: none;
+    text-transform: uppercase;
 }
 
 #block-vsite-register-get-your-site-block .get-your-site-button:hover {

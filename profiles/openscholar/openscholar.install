@@ -50,7 +50,7 @@ function openscholar_install() {
   theme_disable(array('bartik'));
 
   // set the default theme.
-  variable_set('theme_default', 'projects_harvard');
+  variable_set('theme_default', 'scholars_harvard');
 
   variable_set('admin_theme', 'seven');
   variable_set('node_admin_theme', '1');

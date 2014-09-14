@@ -51,7 +51,7 @@ margin-bottom:10px;
 #search-block-form input.form-submit,
 #search-block-form #edit-submit,
 #search-form #edit-submit {
-  background: url("../images/hwpi_basesprite.png") no-repeat scroll 2px -59px transparent;
+  background: url("../images/hwpi_basesprite.png") no-repeat scroll 2px -340px transparent;
   height: 33px;
   width: 44px;
 }

@@ -6,8 +6,8 @@ dependencies[] = og_context
 hidden = TRUE
 
 
-; Information added by drush on 2014-03-05
+; Information added by drush on 2014-09-08
 version = "e2c2811"
 project = "entityreference_prepopulate"
-datestamp = "1394022256"
+datestamp = "1410167638"
 

@@ -6,5 +6,5 @@
  */
 function huji_front_install() {
   // Set the default theme.
-  variable_set('theme_default', 'projects_harvard');
+  variable_set('theme_default', 'scholars_harvard');
 }

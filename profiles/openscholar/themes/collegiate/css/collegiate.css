@@ -165,7 +165,7 @@ background: #fff;
 #columns {margin-top:18px;}
 
 #header-container {
-  background: url('../images/headerBg.png') repeat-x;
+  background: url('../images/headerBgNew.png') repeat-x;
   min-height:153px;
   background-size: cover;
   background-color: #840000;
@@ -220,6 +220,9 @@ width: 100%;
 	border:none;
 }
 
+#boxes-box-shield {
+  color: #DDDDDD;
+}
 
 body.navbar-off .region-sidebar-first {
 padding-top: 0;

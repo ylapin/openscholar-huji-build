@@ -53,7 +53,6 @@
 function DnD(droppable, settings) {
   this.$droppables = jQuery();
   this.settings = settings;
-  this.jqVersion = parseInt(jQuery.fn.jquery.replace(/\./g, ''));
 
   this.addDroppable(droppable);
 }
@@ -328,8 +327,11 @@ function DnD(droppable, settings) {
       var reader = new FileReader();
 
       // Save createPreview handlers.
-      var createPreviewEvent = dndFile.$droppable.DnD()
-        ._getEventHandlers(dndFile.$droppable, 'dnd:createPreview');
+      var droppableEvents = dndFile.$droppable.data('events');
+      var createPreviewHandlers = {};
+      if (droppableEvents['dnd:createPreview']) {
+        createPreviewHandlers = $.extend({}, droppableEvents['dnd:createPreview']);
+      }
 
       reader.onload = function () {
         // Give others an ability to build a preview for a dndFile.
@@ -339,15 +341,13 @@ function DnD(droppable, settings) {
         // It is needed to call event handlers in a such weird way because in
         // case of auto upload at this point events are already detached because
         // of sent Drupal.ajax request.
-        $.each(createPreviewEvent, function (i, event) {
-          if (event.hasOwnProperty('handler')) {
-            var result = event.handler(dndFile, reader);
-            // Allow callbacks to prevent others running.
-            if (result === false) {
-              return result;
-            }
-            return true;
+        $.each(createPreviewHandlers, function (i, event) {
+          var result = event.handler(dndFile, reader);
+          // Allow callbacks to prevent others running.
+          if (result === false) {
+            return result;
           }
+          return true;
         });
       };
       reader.readAsDataURL(dndFile.file);
@@ -524,7 +524,8 @@ function DnD(droppable, settings) {
        * $droppables in a separate variable as the element can be destroyed
        * (or behaviors can be detached) after the ajax request.
        */
-      var completeEvent = me._getEventHandlers($droppables, 'dnd:send:complete');
+      var droppableEvents = $droppables.data('events');
+      var completeHandlers = $.extend({}, droppableEvents['dnd:send:complete']);
 
       // Override complete callback to set this.sending property to false.
       var completeCallback = options.complete;
@@ -535,41 +536,13 @@ function DnD(droppable, settings) {
         completeCallback(response, status);
 
         // Call 'dnd:send:complete' handlers that have been saved earlier.
-        $.each(completeEvent, function (i, event) {
-          if (event.hasOwnProperty('handler')) {
-            return event.handler(response, status, sentFiles);
-          }
+        $.each(completeHandlers, function (i, event) {
+          return event.handler(response, status, sentFiles);
         });
       };
 
       // Finally, send a request.
       $.ajax(options);
-    },
-
-    /**
-     * Get object event handlers.
-     * 
-     * @param $obj
-     * @param [eventName]
-     *    Event name to return.
-     * @returns {*}
-     * @private
-     */
-    _getEventHandlers: function ($obj, eventName) {
-      var events;
-      if (this.jqVersion < 180) {
-        events = $obj.data('events');
-      }
-      else {
-        events = $._data($obj[0], "events");
-      }
-
-      var event = {};
-      if (events[eventName]) {
-        event = $.extend({}, events[eventName]);
-      }
-      
-      return eventName ? event : events;
     }
   };
 

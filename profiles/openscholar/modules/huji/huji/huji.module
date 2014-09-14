@@ -81,10 +81,10 @@ function huji_branding_footer() {
       ),
     ),
     'copyright' => array(
-      '#markup' => t('<div class="huji-copyright">Copyright &copy; @year The Hebrew University of Jerusalem</div>', array('@year' => date('Y'))),
+      '#markup' => l(t('<div class="huji-copyright">Copyright &copy; @year The Hebrew University of Jerusalem</div>', array('@year' => date('Y'))), 'http://new.huji.ac.il/en/page/479', array('html' => TRUE)),
     ),
     'credits' => array(
-      '#markup' => t('<div class="credits">Developed by <a href="http://gizra.com">Gizra</a></div>'),
+      '#markup' => t('<div class="credits">Developed by <a href="http://openscholar.gizra.com">Gizra</a></div>'),
     ),
   );
 
