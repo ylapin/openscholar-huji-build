@@ -6,6 +6,17 @@
  */
 
 /**
+ * Implements hook_menu_alter().
+ */
+function huji_menu_alter(&$item) {
+  // Hide and neutralize the "Create new account and request new password" tab
+  $item['user/register']['type'] = MENU_CALLBACK;
+  $item['user/register']['access callback'] = FALSE;
+  $item['user/password']['type'] = MENU_CALLBACK;
+  $item['user/password']['access callback'] = FALSE;
+}
+
+/**
  * Implements hook_preprocess_page().
  */
 function huji_preprocess_page(&$vars) {
@@ -86,4 +97,22 @@ function huji_branding_footer() {
   );
 
   return $footer;
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function huji_form_alter(&$form, &$form_state, $form_id){
+
+//change login form for huji: hide common login and add link to SSO login
+
+  if (!in_array($form_id, array('user_login', 'user_login_block'))) {
+    return;
+  }
+
+  $form['#attached']['js'] = array(drupal_get_path('module', 'huji') . '/js/login.js');
+  $form['#prefix']= '<a href="http://scholars.huji.ac.il/saml_login" >HUJI Staff log in here </a><br> <a href="javascript:toggle();" id="loginlink" >
+Login form for Admins and Testers here</a>  <div id="localogin" style="display: none;" >';
+  $form['#suffix']="</div>";
+
 }
