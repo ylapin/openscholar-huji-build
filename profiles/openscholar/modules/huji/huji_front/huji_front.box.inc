@@ -19,11 +19,11 @@ function huji_front_default_box() {
   $box->description = 'Scholars fixed-position header.';
   $box->options = array(
     'body' => array(
-      'value' => '<div id="os-reasons_header" class="os-scholar-header">
-        <div class="os-scholar-header-wrap">
-            <h2><a href="/" title="Home" rel="home">Scholars at Harvard</a></h2>
-            <a href="/site/register" class="os-big-button">Get Your Site Now</a>
-            </div>
+      'value' => '
+        <div id="os-reasons_header" class="os-scholar-header">
+          <div class="os-scholar-header-wrap">
+            <h2><a href="/" title="Home" rel="home">Scholars at HUJI</a></h2>
+          </div>
         </div>
       ',
       'format' => 'filtered_html',

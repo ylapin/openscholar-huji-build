@@ -4,9 +4,9 @@ core = 7.x
 dependencies[] = taxonomy
 
 
-; Information added by drush on 2014-09-08
+; Information added by drush on 2014-09-22
 version = "7.x-1.x-dev"
 core = "7.x"
 project = "hierarchical_taxonomy"
-datestamp = "1410167691"
+datestamp = "1411369958"
 

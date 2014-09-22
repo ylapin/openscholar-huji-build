@@ -144,7 +144,8 @@ class OgVocab extends Entity {
     // Set the widget's module.
     $widget_info = field_info_widget_types($widget_type);
     $mocked_instance['widget']['module'] = $widget_info['module'];
-    $mocked_instance['widget']['settings'] = drupal_array_merge_deep($widget_info['settings'], $instance['widget']['settings']);
+    $this->settings['widget'] = empty($this->settings['widget']) ? array() : $this->settings['widget'];
+    $mocked_instance['widget']['settings'] = drupal_array_merge_deep($widget_info['settings'], $instance['widget']['settings'], $this->settings['widget']);
 
     // Set widget's auto complete path if needed.
     if (in_array($this->settings['widget_type'], array('entityreference_autocomplete', 'entityreference_autocomplete_tags'))) {
@@ -253,8 +254,33 @@ function og_vocab_element_after_build($form, &$form_state) {
     unset($form[$field_name][LANGUAGE_NONE]['add_more']);
     unset($form[$field_name][LANGUAGE_NONE][0]['_weight']);
 
+    // Counting the vocabularies relate to the entity.
+    $vocabularies = 0;
+
+    // Counting how much vocabularies were removed due to empty terms to select.
+    $hidden_vocabularies = 0;
+    foreach ($form[$field_name][LANGUAGE_NONE][0] as $key => &$info) {
+      if (!is_numeric($key)) {
+        continue;
+      }
+
+      $vocabularies++;
+      // We need to check that the #options property is there due to form
+      // elements that might not holds this property.
+      if (isset($info['#options']) && empty($info['#options'])) {
+        $hidden_vocabularies++;
+        $info['#access'] = FALSE;
+      }
+    }
+
     $form[$field_name][LANGUAGE_NONE]['#theme_wrappers'] = array('fieldset');
     $form[$field_name][LANGUAGE_NONE]['#title'] = '';
+
+    if ($vocabularies == $hidden_vocabularies) {
+      // All of the vocabularies were removed. Remove the field as well from the
+      // form.
+      unset($form[$field_name][LANGUAGE_NONE]);
+    }
   }
 
   return $form;
@@ -329,7 +355,10 @@ function og_vocab_element_validate($form, &$form_state) {
         $ids[] = $value;
       }
     }
-    form_set_value($form[$field_name][LANGUAGE_NONE], $ids, $form_state);
+
+    // We don't use form_set_value(), as we want to allow others the possibility
+    // to change the field's location in the form.
+    drupal_array_set_nested_value($form_state['values'], $form_state['field'][$field_name][LANGUAGE_NONE]['array_parents'], $ids, TRUE);
   }
 }
 

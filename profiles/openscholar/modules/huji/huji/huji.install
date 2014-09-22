@@ -1,0 +1,8 @@
+<?php
+
+/**
+ * Enables simplesamlphp_auth module.
+ */
+function huji_update_7001() {
+  module_enable(array('simplesamlphp_auth'));
+}

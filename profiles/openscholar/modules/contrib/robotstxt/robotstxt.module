@@ -68,6 +68,7 @@ function robotstxt_robots() {
   $content = array_filter($content);
 
   drupal_add_http_header('Content-type', 'text/plain');
+  drupal_add_http_header('Cache-Control', 'public, max-age=27000');
   echo implode("\n", $content);
   drupal_exit();
 }

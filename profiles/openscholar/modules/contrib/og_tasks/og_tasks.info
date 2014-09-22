@@ -6,9 +6,9 @@ core = 7.x
 files[] = includes/task.inc
 
 
-; Information added by drush on 2014-09-08
+; Information added by drush on 2014-09-22
 version = "7.x-1.0"
 core = "7.x"
 project = "og_tasks"
-datestamp = "1410167768"
+datestamp = "1411369979"
 

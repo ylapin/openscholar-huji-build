@@ -15,6 +15,17 @@ function entityreference_prepopulate_ctools_plugin_directory($module, $plugin) {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function entityreference_prepopulate_theme() {
+  return array(
+    'entityreference_prepopulate_providers_table' => array(
+      'render element' => 'form',
+    ),
+  );
+}
+
+/**
  * Implements hook_field_create_instance().
  *
  * Add "default value function" setting to the field instance.
@@ -52,12 +63,6 @@ function entityreference_prepopulate_field_update_instance($instance, $prior_ins
  */
 function entityreference_prepopulate_field_attach_form($entity_type, $entity, &$form, &$form_state, $langcode) {
   list($id,,$bundle) = entity_extract_ids($entity_type, $entity);
-
-  if (!empty($form_state['triggering_element']['#ajax'])) {
-    // We are inside AJAX, so values can't be taken from URL at the
-    // moment.
-    return;
-  }
 
   // Check if there is a field that needs to be prepopulated attached to the
   // given entity.
@@ -98,7 +103,7 @@ function entityreference_prepopulate_field_attach_form($entity_type, $entity, &$
       }
 
       if ($ids || ($id && !empty($settings['action_on_edit']))) {
-        // New entity with prepopualte values, or an existing entity,
+        // New entity with prepopulate values, or an existing entity,
         // we might need to disable/ hide the group-audience field.
         if ($settings['action'] == 'disable') {
           $form[$field_name][$lang]['#disabled'] = TRUE;
@@ -110,7 +115,7 @@ function entityreference_prepopulate_field_attach_form($entity_type, $entity, &$
           $form[$field_name]['#access'] = FALSE;
         }
       }
-      elseif (in_array($settings['fallback'], array('form_error', 'redirect'))) {
+      elseif (in_array($settings['fallback'], array('form_error', 'redirect', 'hide'))) {
         $message = t('Field @label must be populated via URL.', array('@label' => $instance['label']));
         if ($settings['fallback'] == 'form_error') {
           form_error($form, $message);
@@ -118,6 +123,9 @@ function entityreference_prepopulate_field_attach_form($entity_type, $entity, &$
         elseif ($settings['fallback'] == 'redirect') {
           drupal_set_message($message, 'notice');
           drupal_goto();
+        }
+        elseif ($settings['fallback'] == 'hide') {
+          $form[$field_name]['#access'] = FALSE;
         }
       }
     }
@@ -151,7 +159,8 @@ function entityreference_prepopulate_field_access($op, $field, $entity_type, $en
   }
 
   if ($id && empty($entity->is_new)) {
-    return $settings['action'] == 'hide' ? FALSE : NULL;
+    // The field need to be hidden when editing the entity.
+    return $settings['action'] == 'hide' && !empty($settings['action_on_edit']) ? FALSE : NULL;
   }
 
   if ($settings['action'] == 'hide') {
@@ -253,14 +262,32 @@ function entityreference_prepopulate_get_values($field, $instance, $validate = T
     $ids = entityreference_prepopulate_get_values_from_cache($field, $instance);
   }
 
-  // Check if we have OG-context integration.
-  if (!$ids) {
-    $ids = entityreference_prepopulate_get_values_from_og_context($field, $instance);
+  // Get the providers.
+  $enabled_providers = !empty($instance['settings']['behaviors']['prepopulate']['providers']) ? array_filter($instance['settings']['behaviors']['prepopulate']['providers']) : array();
+
+  if (!$enabled_providers) {
+    // If the instance isn't updated yet, we assume the URL provider is enabled.
+    $enabled_providers += array('url' => TRUE);
   }
 
-  // Check if there are values in the URL.
-  if (!$ids) {
-    $ids = entityreference_prepopulate_get_values_from_url($field, $instance);
+  // For backwards compatibility with version 1.4, we check the "og_context"
+  // property.
+  if (!empty($instance['settings']['behaviors']['prepopulate']['og_context'])) {
+    $enabled_providers += array('og_context' => TRUE);
+  }
+
+  $providers = entityreference_prepopulate_providers_info();
+  foreach (array_keys($enabled_providers) as $name) {
+    if (empty($providers[$name]) || !empty($providers[$name]['disabled'])) {
+      // Provider doesn't exist any more or is disabled.
+      continue;
+    }
+    $provider = $providers[$name];
+    $function = $provider['callback'];
+    if ($ids = $function($field, $instance)) {
+      // We found values, so we can break.
+      break;
+    }
   }
 
   if (!$ids || !$validate) {
@@ -348,7 +375,7 @@ function entityreference_prepopulate_get_values_from_url($field, $instance) {
 function entityreference_prepopulate_get_values_from_og_context($field, $instance) {
   $field_name = $field['field_name'];
 
-  if (!module_exists('og_context') || !og_is_group_audience_field($field_name) || !$og_context = og_context()) {
+  if (!module_exists('og_context') || !$og_context = og_context()) {
     return;
   }
 
@@ -434,4 +461,35 @@ function entityreference_prepopulate_create_node_links($entity_type, $entity_id,
   );
 
   return $element;
+}
+
+/**
+ * Return array of providers.
+ */
+function entityreference_prepopulate_providers_info() {
+  $description = t('Determine if values that should be prepopulated should "listen" to the OG-context.');
+  if ($disabled = !module_exists('og_context')) {
+    $description .= '<br / >' . t('Organic groups integration: Enable OG-context module.');
+  }
+
+  $providers = array(
+    'url' => array(
+      'title' => t('URL'),
+      'description' => t('Prepopulate from URL'),
+      'callback' => 'entityreference_prepopulate_get_values_from_url',
+    ),
+    'og_context' => array(
+      'title' => t('OG Context'),
+      'description' => $description,
+      'disabled' => $disabled,
+      'callback' => 'entityreference_prepopulate_get_values_from_og_context',
+    ),
+  );
+
+  $providers = array_merge($providers, module_invoke_all('entityreference_prepopulate_providers_info'));
+
+  // Allow other module to change the providers list.
+  drupal_alter('entityreference_prepopulate_providers_info', $providers);
+
+  return $providers;
 }

@@ -966,3 +966,23 @@ td img {
 .entity-registration .field-label {
   padding-right: 5px;
 }
+
+/* Global branding header styling */
+#branding_header {
+  background: white;
+}
+
+.branding-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 980px;
+}
+
+.branding-left {
+  float: left;
+  width: 235px;
+}
+
+#branding_header a {
+  color: #BAC5C6;
+}

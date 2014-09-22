@@ -7,8 +7,8 @@ files[] = tests/feeds_tamper_ui.test
 core = 7.x
 
 
-; Information added by drush on 2014-09-08
+; Information added by drush on 2014-09-22
 version = "unknown"
 project = "feeds_tamper‏"
-datestamp = "1410167670"
+datestamp = "1411369950"
 

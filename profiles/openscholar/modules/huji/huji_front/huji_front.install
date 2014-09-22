@@ -8,3 +8,10 @@ function huji_front_install() {
   // Set the default theme.
   variable_set('theme_default', 'scholars_harvard');
 }
+
+/**
+ * Enables iqss_scholars_front module.
+ */
+function huji_front_update_7001() {
+  module_enable(array('iqss_scholars_front'));
+}

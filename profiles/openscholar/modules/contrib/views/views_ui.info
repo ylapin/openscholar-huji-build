@@ -8,9 +8,9 @@ files[] = views_ui.module
 files[] = plugins/views_wizard/views_ui_base_views_wizard.class.php
 
 
-; Information added by drush on 2014-09-08
+; Information added by drush on 2014-09-22
 version = "7.x-3.5+29-dev"
 core = "7.x"
 project = "views"
-datestamp = "1410167836"
+datestamp = "1411369994"
 

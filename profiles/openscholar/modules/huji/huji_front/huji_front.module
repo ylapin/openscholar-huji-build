@@ -70,12 +70,21 @@ function huji_front_strongarm() {
  * Implements hook_preprocess_page().
  */
 function huji_front_preprocess_page(&$vars) {
-  if (drupal_is_front_page() == TRUE && !vsite_get_vsite()) {
-    drupal_add_css(drupal_get_path('module', 'huji_front') . '/css/huji-front.css');
-
-    // Show the login link.
-    $vars['login_link'] = theme('openscholar_login');
+  if (vsite_get_vsite()) {
+    return;
   }
+
+  if (!drupal_is_front_page()) {
+    return;
+  }
+
+  drupal_add_css(drupal_get_path('module', 'huji_front') . '/css/huji-front.css');
+
+  // Remove branding header from sitewide front page.
+  unset($vars['page']['branding_header']['huji']);
+
+  // Show the login link.
+  $vars['login_link'] = theme('openscholar_login');
 }
 
 /**

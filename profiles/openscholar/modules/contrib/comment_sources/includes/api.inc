@@ -574,7 +574,7 @@ function comment_sources_get_source_node($node, $trim_preset = FALSE, $default_s
       ->orderBy('cid', 'ASC')
       ->condition('nid', $node->nid)
       ->condition('status', COMMENT_SOURCES_ACTIVE)
-      ->fields('c', array('source'))
+      ->fields('c', array('cid', 'source'))
       ->range(0, 1)
       ->execute()
       ->fetchAllAssoc('cid');
