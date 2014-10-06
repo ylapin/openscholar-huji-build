@@ -986,3 +986,8 @@ td img {
 #branding_header a {
   color: #BAC5C6;
 }
+
+/* Fix offset of header for HUJI front page */
+body.front:not(.og-context) header {
+  height: 161px;
+}

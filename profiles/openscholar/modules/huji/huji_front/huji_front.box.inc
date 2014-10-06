@@ -61,7 +61,7 @@ function huji_front_default_box() {
   $box->options = array(
     'body' => array(
       'value' => '<div class="os-leftcol">
-        <a href="http://scholar.princeton.edu/" target="_blank">OpenScholar</a> is a website building and content management tool available to faculty, research teams, research labs, and academic projects for hosting professional profile sites. OpenScholar sites can contain biographies, CVs, course lists, publications, blog entries, and event listings. An owner of a site does not need to know code or web development tools to edit and use the site. A user only needs to a web browser to edit the site. Certain fees apply.
+        <a href="http://scholars.huji.ac.il/" target="_blank">OpenScholar</a> is a website building and content management tool available to faculty, research teams, research labs, and academic projects for hosting professional profile sites. OpenScholar sites can contain biographies, CVs, course lists, publications, blog entries, and event listings. An owner of a site does not need to know code or web development tools to edit and use the site. A user only needs a web browser to edit the site. Certain fees apply.
         <a href="http://https://docs.google.com/a/mail.huji.ac.il/forms/d/1s_YBDIJKPp6CbqbmBJ-6RTtzU6jVjNwupAU5NOZD25I/viewform" target="_blank">Contact us</a> now <strong>to find out more and create your site.</strong>
         <div class="os-featuredSites"><a href="/websites">' . $image . '</a></div>
         </div>',
