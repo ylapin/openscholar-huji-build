@@ -1226,28 +1226,27 @@ border-right:1px solid #E8E9EB;
 }
 
 /* Theme site-wide search page */
-body.page-search:not(.og-context) {
-  background: #e7e7e7;
+body.page-search.not-vsite {
+  background: #e7e7e7 !important;
 }
 
-body.page-search:not(.og-context) .os-scholar-header {
-  background: #800000;
+body.page-search.not-vsite .os-scholar-header {
+  background: #800000 !important;
 }
 
-body.page-search:not(.og-context) .os-scholar-header-wrap h2 {
-  text-indent: -999em;
-  width: 300px;
-  height: 56px;
-  background: url('../../../os_basetheme/css/images/logoWhite.png');
-  background-size: cover;
+body.page-search.not-vsite .os-scholar-header-wrap h2 {
+  text-indent: -999em !important;
+  width: 300px !important;
+  height: 56px !important;
+  background: url('../../../os_basetheme/css/images/logoWhite.png') !important;
   margin-top: 8px !important;
-  padding: 0;
+  padding: 0 !important;
 }
 
-body.page-search:not(.og-context) #edit-submit {
-  position: relative;
-  top: -51px;
-  left: 271px;
+body.page-search.not-vsite #edit-submit {
+  position: relative !important;
+  top: -51px !important;
+  left: 271px !important;
   height: 33px !important;
   width: 33px !important;
   background: url('../../../os_basetheme/images/scholarbase-sprite.png') no-repeat 0 -88px !important;
