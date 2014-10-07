@@ -1167,3 +1167,47 @@ body.page-page-not-found #branding_footer .credits{
   float: right;
   margin-right: 100px;
 }
+
+/* "websites" page styling */
+body.page-websites {
+  background: #e7e7e7;
+}
+
+body.page-websites .os-scholar-header-wrap h2 {
+  text-indent: -999em;
+  width: 300px;
+  height: 56px;
+  background: url('images/logoWhite.png');
+  background-size: cover;
+  margin-top: 8px !important;
+}
+
+body.page-websites .os-scholar-header {
+  background: #800000;
+}
+
+body.page-websites a.os-big-button {
+  font-weight: normal;
+  font-size: 30px;
+  text-transform: uppercase;
+  padding-left: 71px;
+  width: 415px;
+}
+
+body.page-websites #branding_footer .huji-copyright{
+  float: left;
+  margin-left: 100px;
+}
+
+body.page-websites #branding_footer .credits{
+  float: right;
+  margin-right: 100px;
+}
+
+body.page-websites #columns #views-exposed-form-os-websites-page {
+  background: #f4f4f4;
+}
+
+body.page-websites #columns .view-os-websites .views-field-title a {
+  color: #800000;
+}
