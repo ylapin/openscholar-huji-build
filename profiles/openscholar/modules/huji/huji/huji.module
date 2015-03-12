@@ -120,6 +120,8 @@ function huji_branding_footer() {
  */
 function huji_form_alter(&$form, &$form_state, $form_id){
 
+global $base_url;
+
 //change login form for huji: hide common login and add link to SSO login
 
   if (!in_array($form_id, array('user_login', 'user_login_block'))) {
@@ -127,7 +129,7 @@ function huji_form_alter(&$form, &$form_state, $form_id){
   }
 
   $form['#attached']['js'] = array(drupal_get_path('module', 'huji') . '/js/login.js');
-  $form['#prefix']= '<a href="http://scholars.huji.ac.il/saml_login" >HUJI Staff log in here </a><br> <a href="javascript:toggle();" id="loginlink" >
+  $form['#prefix']= '<a href="'.$base_url.'/saml_login" >HUJI Staff log in here </a><br> <a href="javascript:toggle();" id="loginlink" >
 Login form for Admins and Testers here</a>  <div id="localogin" style="display: none;" >';
   $form['#suffix']="</div>";
 
